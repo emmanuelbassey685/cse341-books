@@ -19,10 +19,7 @@ app.get('/trails', async (req, res) => {
     return res.status(200).json(trails);
   } catch (error) {
     console.error('Failed to retrieve trails:', error.message);
-
-    return res.status(500).json({
-      message: 'Failed to retrieve trails'
-    });
+    return res.status(500).json({ message: 'Failed to retrieve trails' });
   }
 });
 

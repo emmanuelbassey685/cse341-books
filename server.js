@@ -1,9 +1,5 @@
 import app from './app.js';
 import { connectToDb } from './src/db/connect.js';
-import dns from 'node:dns';
-dns.setServers(['1.1.1.1', '8.8.8.8']); // Overrides DNS for this running app process
-
-// ... your existing imports and code (like your connectToDb file)
 
 const PORT = process.env.PORT;
 
