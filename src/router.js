@@ -1,13 +1,13 @@
 import express from 'express';
 
-import { getBooksHandler } from './controllers/books.js';
-
-console.log('BOOKS ROUTER LOADED');
+import {
+  getBooksHandler,
+  getBookByIdHandler
+} from './controllers/books.js';
 
 const router = express.Router();
 
 router.get('/books', getBooksHandler);
-
-console.log('ROUTES:', router.stack.map(layer => layer.route?.path));
+router.get('/books/:id', getBookByIdHandler);
 
 export default router;
