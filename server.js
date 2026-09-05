@@ -1,3 +1,5 @@
+console.log('SERVER FILE:', import.meta.url);
+
 import app from './app.js';
 import { connectToDb } from './src/db/connect.js';
 
