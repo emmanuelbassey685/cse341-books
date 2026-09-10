@@ -9,4 +9,13 @@ const getAllAuthors = async () => {
   return authors;
 };
 
-export { getAllAuthors };
+const getAuthorById = async (id) => {
+  const db = getDb();
+  const collection = db.collection('authors');
+
+  const author = await collection.findOne({ id });
+
+  return author;
+};
+
+export { getAllAuthors, getAuthorById };

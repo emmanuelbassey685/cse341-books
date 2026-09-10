@@ -1,4 +1,4 @@
-import { getAllAuthors } from '../models/authors.js';
+import { getAllAuthors, getAuthorById } from '../models/authors.js';
 
 const getAuthorsHandler = async (req, res) => {
   try {
@@ -13,4 +13,23 @@ const getAuthorsHandler = async (req, res) => {
   }
 };
 
-export { getAuthorsHandler };
+const getAuthorByIdHandler = async (req, res) => {
+  try {
+    const author = await getAuthorById(req.params.id);
+
+    if (!author) {
+      return res.status(404).json({
+        message: 'Author not found'
+      });
+    }
+
+    res.status(200).json(author);
+  } catch (error) {
+    res.status(500).json({
+      message: 'Failed to retrieve author',
+      error: error.message
+    });
+  }
+};
+
+export { getAuthorsHandler, getAuthorByIdHandler };

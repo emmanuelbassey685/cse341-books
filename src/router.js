@@ -1,6 +1,6 @@
 import express from 'express';
 import { getBooksHandler, getBookByIdHandler } from './controllers/books.js';
-import { getAuthorsHandler } from './controllers/authors.js';
+import { getAuthorsHandler, getAuthorByIdHandler } from './controllers/authors.js';
 
 const router = express.Router();
 
@@ -57,5 +57,44 @@ router.get('/books/:id', getBookByIdHandler);
  *         description: Unable to retrieve authors
  */
 router.get('/authors', getAuthorsHandler);
+
+/**
+ * @openapi
+ * /authors:
+ *   get:
+ *     summary: Get all authors
+ *     tags:
+ *       - Authors
+ *     responses:
+ *       200:
+ *         description: A list of authors
+ *       500:
+ *         description: Unable to retrieve authors
+ */
+router.get('/authors', getAuthorsHandler);
+
+/**
+ * @openapi
+ * /authors/{id}:
+ *   get:
+ *     summary: Get one author by id
+ *     tags:
+ *       - Authors
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: The custom author id, such as a1
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Author returned successfully
+ *       404:
+ *         description: Author not found
+ *       500:
+ *         description: Unable to retrieve author
+ */
+router.get('/authors/:id', getAuthorByIdHandler);
 
 export default router;
