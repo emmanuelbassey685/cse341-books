@@ -1,4 +1,5 @@
 import { writeFileSync } from 'node:fs';
+
 import swaggerJsdoc from 'swagger-jsdoc';
 
 const options = {
@@ -14,7 +15,38 @@ const options = {
         url: '/',
         description: 'Current server'
       }
-    ]
+    ],
+    components: {
+      schemas: {
+        Book: {
+          type: 'object',
+          required: [
+            'id',
+            'authorId',
+            'title',
+            'publicationDate'
+          ],
+          properties: {
+            id: {
+              type: 'string',
+              example: 'b1'
+            },
+            authorId: {
+              type: 'string',
+              example: 'a1'
+            },
+            title: {
+              type: 'string',
+              example: 'Patterns of Light'
+            },
+            publicationDate: {
+              type: 'string',
+              example: '2021-08-17'
+            }
+          }
+        }
+      }
+    }
   },
   apis: ['./src/router.js', './app.js']
 };
@@ -22,4 +54,5 @@ const options = {
 const swaggerSpec = swaggerJsdoc(options);
 
 writeFileSync('./swagger.json', JSON.stringify(swaggerSpec, null, 2));
+
 console.log('Swagger documentation generated.');
