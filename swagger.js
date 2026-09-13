@@ -44,6 +44,29 @@ const options = {
               example: '2021-08-17'
             }
           }
+        },
+
+        Author: {
+          type: 'object',
+          required: [
+            'id',
+            'name',
+            'birthYear'
+          ],
+          properties: {
+            id: {
+              type: 'string',
+              example: 'a1'
+            },
+            name: {
+              type: 'string',
+              example: 'Maya Rivera'
+            },
+            birthYear: {
+              type: 'integer',
+              example: 1985
+            }
+          }
         }
       }
     }

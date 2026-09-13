@@ -1,10 +1,5 @@
 import express from 'express';
-import {
-  getBooksHandler,
-  getBookByIdHandler,
-  createBookHandler,
-  updateBookHandler,
-  deleteBookHandler
+import { getBooksHandler, getBookByIdHandler, createBookHandler, updateBookHandler, deleteBookHandler
 } from './controllers/books.js';
 import { getAllAuthors, getAuthorById, createAuthor, updateAuthor, deleteAuthor,
 } from './controllers/authors.js';
@@ -158,5 +153,140 @@ router.put('/books/:id', updateBookHandler);
  *         description: Unable to delete book
  */
 router.delete('/books/:id', deleteBookHandler);
+
+/**
+ * @openapi
+ * /authors:
+ *   get:
+ *     summary: Get all authors
+ *     tags:
+ *       - Authors
+ *     responses:
+ *       200:
+ *         description: Authors returned successfully
+ *       500:
+ *         description: Unable to retrieve authors
+ */
+router.get('/authors', getAllAuthors);
+
+/**
+ * @openapi
+ * /authors/{id}:
+ *   get:
+ *     summary: Get one author by id
+ *     tags:
+ *       - Authors
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: The custom author id, such as a1
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Author returned successfully
+ *       404:
+ *         description: Author not found
+ *       500:
+ *         description: Unable to retrieve author
+ */
+router.get('/authors/:id', getAuthorById);
+
+/**
+ * @openapi
+ * /authors:
+ *   post:
+ *     summary: Create a new author
+ *     tags:
+ *       - Authors
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Author'
+ *           example:
+ *             id: a4
+ *             name: John Smith
+ *             birthYear: 1988
+ *     responses:
+ *       201:
+ *         description: Author created successfully
+ *       400:
+ *         description: Missing required fields or duplicate author ID
+ *       500:
+ *         description: Unable to create author
+ */
+router.post('/authors', createAuthor);
+
+/**
+ * @openapi
+ * /authors/{id}:
+ *   put:
+ *     summary: Update an author by id
+ *     tags:
+ *       - Authors
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: The custom author id, such as a1
+ *         schema:
+ *           type: string
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - name
+ *               - birthYear
+ *             properties:
+ *               name:
+ *                 type: string
+ *               birthYear:
+ *                 type: integer
+ *           example:
+ *             name: Updated Author Name
+ *             birthYear: 1991
+ *     responses:
+ *       200:
+ *         description: Author updated successfully
+ *       400:
+ *         description: Missing required fields
+ *       404:
+ *         description: Author not found
+ *       500:
+ *         description: Unable to update author
+ */
+router.put('/authors/:id', updateAuthor);
+
+/**
+ * @openapi
+ * /authors/{id}:
+ *   delete:
+ *     summary: Delete an author by id
+ *     tags:
+ *       - Authors
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: The custom author id, such as a1
+ *         schema:
+ *           type: string
+ *     responses:
+ *       204:
+ *         description: Author deleted successfully
+ *       404:
+ *         description: Author not found
+ *       409:
+ *         description: Author cannot be deleted because they still have books
+ *       500:
+ *         description: Unable to delete author
+ */
+router.delete('/authors/:id', deleteAuthor);
 
 export default router;
